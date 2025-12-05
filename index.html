@@ -38,6 +38,18 @@
     margin-top: 12px;
   }
   
+  .logo-responsive {
+  /* Set the width to a percentage of its parent container */
+  width: 100%; 
+  
+  /* OPTIONAL: Ensure it doesn't get too large or too small */
+  max-width: 150px; 
+  min-width: 50px;
+  
+  /* This ensures the image quality scales down properly */
+  height: auto; 
+}
+  
   table{width:100%;border-collapse:collapse; min-width: 500px;} /* Min width ensures columns don't collapse too much */
   th,td{padding:10px;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:14px;text-align:left}
   th{font-size:13px;color:var(--muted);font-weight:600}
@@ -77,7 +89,7 @@
     <header>
       <div>
         
-        <img width=100px src="lgo.png">
+        <img class="logo-responsive" src="lgo.png">
         <p class="lead"></p>
       </div>
       
