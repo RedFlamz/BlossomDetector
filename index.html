@@ -6,9 +6,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>BlossomCraft — Downdetector</title>
 <style>
+/* ───────────────────────────────────────────── */
+/* MINECRAFT FONTS  */
+/* ───────────────────────────────────────────── */
 
-
-  /* Regular */
 @font-face {
   font-family: "MC";
   src: url("fonts/MinecraftRegular-Bmg3.otf") format("opentype");
@@ -16,7 +17,6 @@
   font-style: normal;
 }
 
-/* Bold */
 @font-face {
   font-family: "MC";
   src: url("fonts/MinecraftBold-nMK1.otf") format("opentype");
@@ -24,7 +24,6 @@
   font-style: normal;
 }
 
-/* Italic */
 @font-face {
   font-family: "MC";
   src: url("fonts/MinecraftItalic-R8Mo.otf") format("opentype");
@@ -32,7 +31,6 @@
   font-style: italic;
 }
 
-/* Bold Italic */
 @font-face {
   font-family: "MC";
   src: url("fonts/MinecraftBoldItalic-1y1e.otf") format("opentype");
@@ -40,73 +38,208 @@
   font-style: italic;
 }
 
-  :root{
-    --bg:#03102a; --card:#0b1220; --accent:#7dd3fc; --muted:#94a3b8;
-    --ok:#10b981; --bad:#ef4444;
-    font-family:MC, Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
-  html,body{height:100%;margin:0;background:linear-gradient(180deg,#03102a 0%,var(--bg) 100%);color:#e6eef8}
-  
-  /* Container adjustments for mobile/desktop */
-  .wrap{max-width:980px;margin:32px auto;padding:20px}
-  
-  header{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-  h1{margin:0;font-size:22px}
-  p.lead{margin:0;color:var(--muted);font-size:13px}
-  
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:16px;border-radius:12px;margin-top:16px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-  
-  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-  
-  /* Prevent pills/buttons from squashing */
-  .pill{padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px;white-space:nowrap;}
-  .online{background:rgba(16,185,129,0.12);color:var(--ok);border:1px solid rgba(16,185,129,0.12)}
-  .offline{background:rgba(239,68,68,0.08);color:var(--bad);border:1px solid rgba(239,68,68,0.06)}
-  .muted{color:var(--muted);font-size:13px}
-  
-  /* Table Responsiveness */
-  .table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
-    margin-top: 12px;
-  }
-  
-  .logo-responsive {
-  /* Set the width to a percentage of its parent container */
-  width: 100%; 
-  
-  /* OPTIONAL: Ensure it doesn't get too large or too small */
-  max-width: 150px; 
-  min-width: 50px;
-  
-  /* This ensures the image quality scales down properly */
-  height: auto; 
-}
-  
-  table{width:100%;border-collapse:collapse; min-width: 500px;} /* Min width ensures columns don't collapse too much */
-  th,td{padding:10px;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:14px;text-align:left}
-  th{font-size:13px;color:var(--muted);font-weight:400}
-  
-  button{background:linear-gradient(180deg,var(--accent),#38bdf8);border:0;padding:8px 12px;border-radius:10px;color:#012;cursor:pointer;font-weight:700;white-space:nowrap;}
-  a.link{color:var(--accent);text-decoration:none;font-weight:700}
-  
-  .small{font-size:13px;color:var(--muted)}
-  .actionTiny{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:6px 8px;border-radius:8px;cursor:pointer}
-  
-  /* MOTD styles */
-  .motd { white-space:pre-wrap; font-family:MC, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; font-size:14px; line-height:1.2; word-break: break-word; }
-  .motd .mc-obf { letter-spacing:0.04em; display:inline-block; } 
+/* ───────────────────────────────────────────── */
+/* GLOBAL THEME — PIXELATED MINECRAFT UI STYLE */
+/* ───────────────────────────────────────────── */
 
-  /* Mobile Specific Adjustments */
-  @media(max-width: 760px){
-    .wrap { margin: 0; padding: 16px; width: auto; }
-    header { justify-content: center; text-align: center; margin-bottom: 24px; }
-    .card { padding: 12px; margin-top: 12px; }
-    h1 { font-size: 20px; }
-    th, td { padding: 8px 6px; font-size: 13px; }
-    .row { row-gap: 8px; } /* Tighten vertical gaps on mobile */
-  }
+:root {
+  --bg: #0b0f1a;
+  --card-bg: #111522;
+  --accent: #55ccff;
+  --muted: #9aa5b8;
+  --ok: #10b981;
+  --bad: #ef4444;
+
+  font-family: MC, monospace;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #0d111c url("img/pixel-panel.png");
+  background-size: 64px;
+  image-rendering: pixelated;
+  color: #e6eef8;
+}
+
+/* wrapper */
+.wrap {
+  max-width: 980px;
+  margin: 32px auto;
+  padding: 20px;
+  image-rendering: pixelated;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+h1 {
+  margin: 0;
+  font-size: 22px;
+  text-shadow: 2px 2px #000;
+}
+p.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ───────────────────────────────── */
+/* CARD — NOW PIXEL BORDERED PANEL */
+/* ───────────────────────────────── */
+
+.card {
+  background: #1a1d29 url("img/pixel-ui.png");
+  background-size: 32px;
+  border: 12px solid transparent;
+  border-image: url("img/pixel-border.png") 16 round;
+  padding: 16px;
+  margin-top: 16px;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 4px #000;
+}
+
+/* flex rows */
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ───────────────────────────────── */
+/* PILLS — BLOCKY PIXEL STYLE */
+/* ───────────────────────────────── */
+
+.pill {
+  padding: 4px 8px;
+  border: 4px solid #000;
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+  image-rendering: pixelated;
+}
+
+.online {
+  background: #0d4028;
+  color: var(--ok);
+  border-color: #0f5e38;
+}
+
+.offline {
+  background: #401818;
+  color: var(--bad);
+  border-color: #6a1c1c;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* TABLE WRAPPER */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 12px;
+  image-rendering: pixelated;
+}
+
+/* LOGO SCALING */
+.logo-responsive {
+  width: 100%;
+  max-width: 150px;
+  min-width: 50px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+  image-rendering: pixelated;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px dashed rgba(255,255,255,0.05);
+  font-size: 14px;
+  text-align: left;
+}
+th {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* ───────────────────────────────── */
+/* BUTTON — PIXEL MINECRAFT BUTTON */
+/* ───────────────────────────────── */
+
+button {
+  background: #3aa3e3;
+  border: 8px solid #000;
+  padding: 6px 12px;
+  color: #012;
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+  image-rendering: pixelated;
+}
+button:hover {
+  background: #4ec7ff;
+}
+
+a.link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.small {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.actionTiny {
+  background: #1b1f2c;
+  border: 6px solid #000;
+  color: var(--muted);
+  padding: 4px 6px;
+  cursor: pointer;
+  font-size: 12px;
+  image-rendering: pixelated;
+}
+
+/* MOTD */
+.motd {
+  white-space: pre-wrap;
+  font-family: MC, monospace;
+  font-size: 14px;
+  line-height: 1.2;
+  word-break: break-word;
+}
+.motd .mc-obf {
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+
+/* ───────────────────────────────── */
+/* MOBILE */
+/* ───────────────────────────────── */
+
+@media(max-width: 760px){
+  .wrap { margin: 0; padding: 16px; width: auto; }
+  header { justify-content: center; text-align: center; margin-bottom: 24px; }
+  .card { padding: 12px; margin-top: 12px; }
+  h1 { font-size: 20px; }
+  th, td { padding: 8px 6px; font-size: 13px; }
+  .row { row-gap: 8px; }
+}
 </style>
 </head>
   <!-- Google tag (gtag.js) -->
