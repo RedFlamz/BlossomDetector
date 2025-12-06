@@ -184,19 +184,24 @@ button {
   appearance: none;
   -webkit-appearance: none;
 
-  background-color: #3aa3e3;
   background-image: url("img/button.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
- font-family: MC, monospace;
-  border: 0px solid #000;
-  
+  background-size: 100% 100%;  /* 🔥 Fill entire button */
+
+  border: none;               /* Remove black border */
+  background-color: transparent;
+
+  width: 200px;               /* Set button size to match the image */
+  height: 60px;
+
   cursor: pointer;
+  font-family: MC, monospace;
   font-weight: 700;
-  white-space: nowrap;
-  image-rendering: pixelated;
+  color: #fff;
+  image-rendering: pixelated; /* Makes image crisp */
 }
+
  
 button:hover {
   
