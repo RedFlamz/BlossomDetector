@@ -307,8 +307,9 @@ a.link {
             <tr>
               <th>World</th>
               <th>Hostname</th>
-              <th>Players</th>
+            
               <th>Status</th>
+              <th>Players</th>
               <th>Latency</th>
               <th>Last check</th>
               <th>Action</th>
@@ -379,6 +380,7 @@ a.link {
         <td><strong>${escapeHtml(w.name)}</strong></td>
         <td><code>${escapeHtml(w.host)}</code></td>
         <td id="${id}_status">—</td>
+        <td id="${id}_players">—</td>
         <td id="${id}_lat">—</td>
         <td id="${id}_time">—</td>
         <td><a id="${id}_open" class="link" target="_blank" rel="noopener">Open site</a></td>
@@ -553,35 +555,58 @@ a.link {
   }
 
   /* ------------------ Website checks for worlds ------------------ */
-  async function checkWorld(world){
-    const id = idFor(world.host);
-    const statusEl = document.getElementById(id + '_status');
-    const latEl = document.getElementById(id + '_lat');
-    const timeEl = document.getElementById(id + '_time');
+async function checkWorld(world){
+  const id = idFor(world.host);
+  const statusEl = document.getElementById(id + '_status');
+  const playersEl = document.getElementById(id + '_players');
+  const latEl = document.getElementById(id + '_lat');
+  const timeEl = document.getElementById(id + '_time');
 
-    statusEl.textContent = 'checking…';
-    statusEl.className = '';
+  statusEl.textContent = 'checking…';
+  playersEl.textContent = '…';
+  latEl.textContent = '—';
+  timeEl.textContent = '—';
+
+  /* 1) Check the website availability (existing behavior) */
+  const url = 'https://' + world.host + '/?cb=' + Math.random().toString(36).slice(2);
+  const t0 = performance.now();
+  let online = false;
+
+  try {
+    await fetch(url, {mode:'no-cors', cache:'no-store'});
+    const latency = Math.round(performance.now() - t0);
+    online = true;
+
+    statusEl.textContent = 'ONLINE';
+    statusEl.className = 'online';
+    latEl.textContent = latency + ' ms';
+    timeEl.textContent = new Date().toLocaleTimeString();
+  } catch(err){
+    statusEl.textContent = 'OFFLINE';
+    statusEl.className = 'offline';
+    playersEl.textContent = '—';
     latEl.textContent = '—';
-    timeEl.textContent = '—';
-
-    const url = 'https://' + world.host + '/?cb=' + Math.random().toString(36).slice(2);
-    const t0 = performance.now();
-    try{
-      const res = await fetch(url, {mode: 'no-cors', cache: 'no-store'});
-      const latency = Math.round(performance.now() - t0);
-      statusEl.textContent = 'ONLINE';
-      statusEl.style.color = '';
-      latEl.textContent = latency + ' ms';
-      timeEl.textContent = new Date().toLocaleTimeString();
-      pushHist(world.host, {ts: nowISO(), online: true, latency});
-    } catch(err){
-      statusEl.textContent = 'OFFLINE';
-      latEl.textContent = '—';
-      timeEl.textContent = new Date().toLocaleTimeString();
-      pushHist(world.host, {ts: nowISO(), online: false, latency: null});
-    }
-    updateWorldsNote();
+    timeEl.textContent = new Date().toLocaleTimeString();
   }
+
+  /* 2) Fetch player count from your Worker */
+  try {
+    const workerURL = `https://test.was-2011.workers.dev/${world.name.toLowerCase()}`;
+    const r = await fetch(workerURL);
+    const data = await r.json();
+
+    if (data.players !== undefined) {
+      playersEl.textContent = data.players;
+    } else {
+      playersEl.textContent = '—';
+    }
+  } catch(e){
+    playersEl.textContent = '—';
+  }
+
+  updateWorldsNote();
+}
+
 
   function checkAllWorlds(){
     WORLDS.forEach(w => checkWorld(w));
